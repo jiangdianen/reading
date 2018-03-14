@@ -19,16 +19,22 @@ import React from 'react';
 import { connect } from 'react-redux';
 import CodePush from 'react-native-code-push';
 import { bindActionCreators } from 'redux';
-import Icon from 'react-native-vector-icons/Ionicons';
 import Main from '../pages/MainPage/Main';
 import * as readCreators from '../actions/read';
+import fontUri from '../utils/FontUtil';
 
 class MainContainer extends React.Component {
-  static navigationOptions = {
-    title: '首页',
-    tabBarIcon: ({ tintColor }) => (
-      <Icon name="md-home" size={25} color={tintColor} />
-    )
+  static navigationItem = {
+
+    titleItem: {
+      title: '首页'
+    },
+
+    tabItem: {
+      title: '首页',
+      icon: { uri: fontUri('Ionicons', 'md-home', 24) },
+      hideTabBarWhenPush: true,
+    },
   };
 
   static componentDidMount() {

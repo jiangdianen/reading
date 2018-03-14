@@ -98,15 +98,20 @@ def enableSeparateBuildPerCPUArchitecture = true
  */
 def enableProguardInReleaseBuilds = true
 
+// Android studio bug hack
+if (System.properties['os.name'].contains("Mac")) {
+    project.ext.react.nodeExecutableAndArgs = ["/usr/local/bin/node"]
+}
+
 android {
-    compileSdkVersion 26
-    buildToolsVersion "26.0.1"
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
     useLibrary 'org.apache.http.legacy'
 
     defaultConfig {
         applicationId "com.reading"
-        minSdkVersion 16
-        targetSdkVersion 26
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 7
         versionName "2.1.0"
         ndk {
@@ -188,10 +193,12 @@ andResGuard {   // ./gradlew resguard[BuildType | Flavor]
 }
 
 dependencies {
+    compile project(':react-native-modal-translucent')
+    compile project(':react-native-navigation-hybrid')
     compile project(':react-native-splash-screen')
     compile fileTree(dir: "libs", include: ["*.jar"])
     //noinspection GradleCompatible
-    compile "com.android.support:appcompat-v7:26.1.0"
+    compile "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
     compile "com.facebook.react:react-native:+" //From node_modules
     compile 'com.tencent.bugly:crashreport:latest.release'
     compile project(':RCTWeChat')
@@ -199,6 +206,17 @@ dependencies {
     compile project(':RNDeviceInfo')
     compile project(':react-native-vector-icons')
     compile project(':react-native-exceptions-manager')
+
+    configurations.all {
+        resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+            def requested = details.requested
+            if (requested.group == 'com.android.support') {
+                if (!requested.name.startsWith("multidex")) {
+                    details.useVersion rootProject.supportLibraryVersion
+                }
+            }
+        }
+    }
 }
 
 // Run this once to be able to run the application with BUCK

@@ -16,11 +16,13 @@
  *
  */
 import React from 'react';
-import { StyleSheet, Image, Text, Linking, View } from 'react-native';
+import { StyleSheet, Image, Text, Linking, View, StatusBar, Platform } from 'react-native';
+import { ifIphoneX } from 'react-native-iphone-x-helper';
+import { Garden } from 'react-native-navigation-hybrid';
 
 import DeviceInfo from 'react-native-device-info';
-import Icon from 'react-native-vector-icons/Ionicons';
 import Button from '../../components/Button';
+import fontUri from '../../utils/FontUtil';
 
 const SHOW_API = 'https://www.showapi.com';
 const READING_REPO = 'https://github.com/attentiveness/reading';
@@ -28,20 +30,24 @@ const READING_REPO = 'https://github.com/attentiveness/reading';
 const aboutLogo = require('../../img/about_logo.png');
 
 class About extends React.Component {
-  static navigationOptions = {
-    title: '关于',
-    tabBarIcon: ({ tintColor }) => (
-      <Icon name="md-information-circle" size={25} color={tintColor} />
-    ),
-    headerRight: (
-      <Icon.Button
-        name="logo-github"
-        backgroundColor="transparent"
-        underlayColor="transparent"
-        activeOpacity={0.8}
-        onPress={() => Linking.openURL(READING_REPO)}
-      />
-    )
+  static navigationItem = {
+    titleItem: {
+      title: '关于'
+    },
+
+    rightBarButtonItem: {
+      icon: { uri: fontUri('Ionicons', 'logo-github', 24) },
+      action: () => {
+        Linking.openURL(READING_REPO);
+      },
+    },
+
+    tabItem: {
+      title: '关于',
+      icon: { uri: fontUri('Ionicons', 'md-information-circle', 24) },
+      hideTabBarWhenPush: true,
+    },
+
   };
 
   render() {
@@ -72,11 +78,37 @@ class About extends React.Component {
   }
 }
 
+function ifLollipop(obj1 = {}, obj2 = {}) {
+  return Platform.Version > 20 ? obj1 : obj2;
+}
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
+    ...Platform.select({
+      ios: {
+        ...ifIphoneX(
+          {
+            paddingTop: 88,
+          },
+          {
+            paddingTop: 64,
+          }
+        ),
+      },
+      android: {
+        ...ifLollipop(
+          {
+            paddingTop: StatusBar.currentHeight + Garden.toolbarHeight,
+          },
+          {
+            paddingTop: Garden.toolbarHeight,
+          }
+        ),
+      },
+    }),
   },
   content: {
     flex: 1,

@@ -22,11 +22,13 @@ import {
   InteractionManager,
   ListView,
   StyleSheet,
-  View
+  View,
+  StatusBar,
+  Platform
 } from 'react-native';
-import ScrollableTabView, {
-  ScrollableTabBar
-} from 'react-native-scrollable-tab-view';
+import { ifIphoneX } from 'react-native-iphone-x-helper';
+import { Garden } from 'react-native-navigation-hybrid';
+import ScrollableTabView, { ScrollableTabBar } from 'react-native-scrollable-tab-view';
 import store from 'react-native-simple-store';
 
 import LoadingView from '../../components/LoadingView';
@@ -118,8 +120,8 @@ class Main extends React.Component {
   };
 
   onPress = (article) => {
-    const { navigate } = this.props.navigation;
-    navigate('Web', { article });
+    const { navigation } = this.props;
+    navigation.push('Web', { article }, { titleItem: { title: article.userName } });
   };
 
   onIconClicked = () => {
@@ -140,6 +142,7 @@ class Main extends React.Component {
       loadMoreTime = Date.parse(new Date()) / 1000;
     }
   };
+
   renderFooter = () => {
     const { read } = this.props;
     return read.isLoadMore ? <Footer /> : <View />;
@@ -213,6 +216,10 @@ class Main extends React.Component {
   }
 }
 
+function ifLollipop(obj1 = {}, obj2 = {}) {
+  return Platform.Version > 20 ? obj1 : obj2;
+}
+
 const styles = StyleSheet.create({
   base: {
     flex: 1
@@ -220,7 +227,29 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
+    ...Platform.select({
+      ios: {
+        ...ifIphoneX(
+          {
+            paddingTop: 88,
+          },
+          {
+            paddingTop: 64,
+          }
+        ),
+      },
+      android: {
+        ...ifLollipop(
+          {
+            paddingTop: StatusBar.currentHeight + Garden.toolbarHeight,
+          },
+          {
+            paddingTop: Garden.toolbarHeight,
+          }
+        ),
+      },
+    }),
   },
   drawerContent: {
     flexDirection: 'row',

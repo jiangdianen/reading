@@ -20,6 +20,8 @@ import android.app.Application;
 
 import com.facebook.infer.annotation.Assertions;
 import com.facebook.react.ReactApplication;
+import me.listenzz.modal.TranslucentModalReactPackage;
+import com.navigationhybrid.NavigationHybridPackage;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactInstanceManagerBuilder;
 import com.facebook.react.ReactNativeHost;
@@ -29,6 +31,7 @@ import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import com.microsoft.codepush.react.CodePush;
+import com.navigationhybrid.ReactBridgeManager;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.richardcao.exceptionsmanager.react.ExceptionsManager;
 import com.tencent.bugly.crashreport.CrashReport;
@@ -47,6 +50,10 @@ public class MainApplication extends Application implements ReactApplication {
     public void onCreate() {
         super.onCreate();
         SoLoader.init(this, /* native exopackage */ false);
+
+        ReactBridgeManager bridgeManager = ReactBridgeManager.instance;
+        bridgeManager.install(getReactNativeHost());
+
         if (!BuildConfig.DEBUG) {
             CrashReport.initCrashReport(getApplicationContext(), "900019562", false);
         }
@@ -99,6 +106,8 @@ public class MainApplication extends Application implements ReactApplication {
         protected List<ReactPackage> getPackages() {
             List<ReactPackage> packages = Arrays.asList(
                     new MainReactPackage(),
+            new TranslucentModalReactPackage(),
+                    new NavigationHybridPackage(),
                     new SplashScreenReactPackage(),
                     new WeChatPackage(),
                     new CodePush(BuildConfig.CODEPUSH_KEY, MainApplication.this, BuildConfig.DEBUG),

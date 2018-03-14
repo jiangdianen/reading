@@ -47,7 +47,6 @@ class Splash extends React.Component {
   }
 
   componentDidMount() {
-    const { navigate } = this.props.navigation;
     Animated.timing(this.state.bounceValue, {
       toValue: 1.2,
       duration: 1000
@@ -56,9 +55,9 @@ class Splash extends React.Component {
     this.timer = setTimeout(() => {
       store.get('isInit').then((isInit) => {
         if (!isInit) {
-          navigate('Category', { isFirst: true });
+          NavigationUtil.resetRootToCategory();
         } else {
-          NavigationUtil.reset(this.props.navigation, 'Home');
+          NavigationUtil.resetRootToHome();
         }
       });
     }, 1000);

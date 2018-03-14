@@ -34,6 +34,7 @@
 		A85175D71D54FD2000AEF15A /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A85175D61D54FD2000AEF15A /* Security.framework */; };
 		A864F2C91FC17881004C4765 /* Bugly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A864F2C81FC17881004C4765 /* Bugly.framework */; };
 		A892EC8E1E7D7FB400D98A95 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
+		FDC23908E71D4912988B40F0 /* libNavigationHybrid.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 70FAE8FAFD8542DA9DA35721 /* libNavigationHybrid.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -205,6 +206,13 @@
 			remoteGlobalIDString = 58B5119B1A9E6C1200147676;
 			remoteInfo = RCTText;
 		};
+		9156F075202F3E6D002E9784 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7E5AD59239BD47EDBFCE8670 /* NavigationHybrid.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 910362D21FE9318600F4DA8E;
+			remoteInfo = NavigationHybrid;
+		};
 		A811E3121DC5004D002EA7DA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 00C302BB1ABCB91800DB3ED1 /* RCTImage.xcodeproj */;
@@ -352,7 +360,9 @@
 		17EC86EE1D6EE93F006878BB /* Ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Ionicons.ttf; sourceTree = "<group>"; };
 		17EC86F01D6EE979006878BB /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
 		6975C3AB08DA47EF8DD10122 /* SplashScreen.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = SplashScreen.xcodeproj; path = "../node_modules/react-native-splash-screen/ios/SplashScreen.xcodeproj"; sourceTree = "<group>"; };
+		70FAE8FAFD8542DA9DA35721 /* libNavigationHybrid.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libNavigationHybrid.a; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
+		7E5AD59239BD47EDBFCE8670 /* NavigationHybrid.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = NavigationHybrid.xcodeproj; path = "../node_modules/react-native-navigation-hybrid/ios/NavigationHybrid.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		928EEFD9BB9A429897093E1F /* RNDeviceInfo.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNDeviceInfo.xcodeproj; path = "../node_modules/react-native-device-info/RNDeviceInfo.xcodeproj"; sourceTree = "<group>"; };
 		A85175D61D54FD2000AEF15A /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -389,6 +399,7 @@
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				911E52ACA02445F0BD06A17D /* libSplashScreen.a in Frameworks */,
+				FDC23908E71D4912988B40F0 /* libNavigationHybrid.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -580,6 +591,7 @@
 				F0B2CC04DB544443BD6D4763 /* RCTWeChat.xcodeproj */,
 				928EEFD9BB9A429897093E1F /* RNDeviceInfo.xcodeproj */,
 				6975C3AB08DA47EF8DD10122 /* SplashScreen.xcodeproj */,
+				7E5AD59239BD47EDBFCE8670 /* NavigationHybrid.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -621,10 +633,19 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		9156F072202F3E6D002E9784 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9156F076202F3E6D002E9784 /* libNavigationHybrid.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		A8E59D7A1FC1DCB70018E020 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
 				B6162246D9CD4351A73DA780 /* libSplashScreen.a */,
+				70FAE8FAFD8542DA9DA35721 /* libNavigationHybrid.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -666,11 +687,6 @@
 			attributes = {
 				LastUpgradeCheck = 820;
 				ORGANIZATIONNAME = RichardCao;
-				TargetAttributes = {
-					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = K268C9Y5CJ;
-					};
-				};
 			};
 			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "reading" */;
 			compatibilityVersion = "Xcode 8.0";
@@ -687,6 +703,10 @@
 				{
 					ProductGroup = 179B10A41D210D1F00405A2C /* Products */;
 					ProjectRef = 179B10A31D210D1F00405A2C /* CodePush.xcodeproj */;
+				},
+				{
+					ProductGroup = 9156F072202F3E6D002E9784 /* Products */;
+					ProjectRef = 7E5AD59239BD47EDBFCE8670 /* NavigationHybrid.xcodeproj */;
 				},
 				{
 					ProductGroup = 00C302A81ABCB8CE00DB3ED1 /* Products */;
@@ -925,6 +945,13 @@
 			remoteRef = 832341B41AAA6A8300B99B32 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		9156F076202F3E6D002E9784 /* libNavigationHybrid.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libNavigationHybrid.a;
+			remoteRef = 9156F075202F3E6D002E9784 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		A811E3131DC5004D002EA7DA /* libRCTImage-tvOS.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1096,13 +1123,18 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEAD_CODE_STRIPPING = NO;
+				DEVELOPMENT_TEAM = RJX3H8KBAF;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)";
-				HEADER_SEARCH_PATHS = "$(SRCROOT)/../node_modules/react-native-splash-screen/ios";
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
+					"$(SRCROOT)/../node_modules/react-native-navigation-hybrid/ios",
+				);
 				INFOPLIST_FILE = reading/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/iReading\"",
 					"\"$(SRCROOT)/iReading\"",
 				);
 				OTHER_LDFLAGS = "-ObjC";
@@ -1119,13 +1151,18 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = RJX3H8KBAF;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)";
-				HEADER_SEARCH_PATHS = "$(SRCROOT)/../node_modules/react-native-splash-screen/ios";
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
+					"$(SRCROOT)/../node_modules/react-native-navigation-hybrid/ios",
+				);
 				INFOPLIST_FILE = reading/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/iReading\"",
 					"\"$(SRCROOT)/iReading\"",
 				);
 				OTHER_LDFLAGS = "-ObjC";

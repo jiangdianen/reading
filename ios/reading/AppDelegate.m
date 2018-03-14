@@ -12,6 +12,7 @@
 
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
+#import <NavigationHybrid/NavigationHybrid.h>
 #import <Bugly/Bugly.h>
 #import "SplashScreen.h"
 
@@ -28,16 +29,11 @@
   [Bugly startWithAppId:@"b0c9343009"];
 #endif
   
-  RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
-                                                      moduleName:@"reading"
-                                               initialProperties:nil
-                                                   launchOptions:launchOptions];
-  rootView.backgroundColor = [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
-  
+  [[HBDReactBridgeManager sharedInstance] installWithBundleURL:jsCodeLocation launchOptions:launchOptions];
+
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-  UIViewController *rootViewController = [UIViewController new];
-  rootViewController.view = rootView;
-  self.window.rootViewController = rootViewController;
+  self.window.backgroundColor = UIColor.whiteColor;
+  self.window.rootViewController = [[UIViewController alloc] init];
   [self.window makeKeyAndVisible];
   [SplashScreen show];
   return YES;

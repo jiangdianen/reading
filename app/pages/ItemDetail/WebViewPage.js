@@ -26,47 +26,47 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   View,
-  Modal
+  Modal,
+  StatusBar,
+  Platform
 } from 'react-native';
+import { ifIphoneX } from 'react-native-iphone-x-helper';
+import { Garden } from 'react-native-navigation-hybrid';
 
 import * as WeChat from 'react-native-wechat';
-import Icon from 'react-native-vector-icons/Ionicons';
 import ToastUtil from '../../utils/ToastUtil';
 import LoadingView from '../../components/LoadingView';
 import { formatStringWithHtml } from '../../utils/FormatUtil';
+import fontUri from '../../utils/FontUtil';
 
 let canGoBack = false;
 const shareIconWechat = require('../../img/share_icon_wechat.png');
 const shareIconMoments = require('../../img/share_icon_moments.png');
 
 class WebViewPage extends React.Component {
-  static navigationOptions = ({ navigation }) => ({
-    title: navigation.state.params.article.userName,
-    tabBarIcon: ({ tintColor }) => (
-      <Icon name="md-home" size={25} color={tintColor} />
-    ),
-    headerRight: (
-      <Icon.Button
-        name="md-share"
-        backgroundColor="transparent"
-        underlayColor="transparent"
-        activeOpacity={0.8}
-        onPress={() => {
-          navigation.state.params.handleShare();
-        }}
-      />
-    )
-  });
+  static navigationItem = {
+    titleItem: {
+      title: '标题会传过来的'
+    },
+
+    rightBarButtonItem: {
+      icon: { uri: fontUri('Ionicons', 'md-share', 24) },
+      action: (navigation) => {
+        const { params } = navigation.state;
+        params.onActionSelected();
+      },
+    },
+  };
 
   constructor(props) {
     super(props);
     this.state = {
       isShareModal: false
     };
+    this.props.navigation.setParams({ onActionSelected: this.onActionSelected });
   }
 
   componentDidMount() {
-    this.props.navigation.setParams({ handleShare: this.onActionSelected });
     BackHandler.addEventListener('hardwareBackPress', this.goBack);
   }
 
@@ -100,7 +100,7 @@ class WebViewPage extends React.Component {
   renderLoading = () => <LoadingView />;
 
   renderSpinner = () => {
-    const { params } = this.props.navigation.state;
+    const { article } = this.props;
     return (
       <TouchableWithoutFeedback
         onPress={() => {
@@ -123,11 +123,11 @@ class WebViewPage extends React.Component {
                   WeChat.isWXAppInstalled().then((isInstalled) => {
                     if (isInstalled) {
                       WeChat.shareToSession({
-                        title: formatStringWithHtml(params.article.title),
+                        title: formatStringWithHtml(article.title),
                         description: '分享自：iReading',
-                        thumbImage: params.article.contentImg,
+                        thumbImage: article.contentImg,
                         type: 'news',
-                        webpageUrl: params.article.url
+                        webpageUrl: article.url
                       }).catch((error) => {
                         ToastUtil.showShort(error.message, true);
                       });
@@ -148,10 +148,10 @@ class WebViewPage extends React.Component {
                   WeChat.isWXAppInstalled().then((isInstalled) => {
                     if (isInstalled) {
                       WeChat.shareToTimeline({
-                        title: formatStringWithHtml(`[@iReading]${params.article.title}`),
-                        thumbImage: params.article.contentImg,
+                        title: formatStringWithHtml(`[@iReading]${article.title}`),
+                        thumbImage: article.contentImg,
                         type: 'news',
-                        webpageUrl: params.article.url
+                        webpageUrl: article.url
                       }).catch((error) => {
                         ToastUtil.showShort(error.message, true);
                       });
@@ -174,7 +174,7 @@ class WebViewPage extends React.Component {
   };
 
   render() {
-    const { params } = this.props.navigation.state;
+    const { article } = this.props;
     return (
       <View style={styles.container}>
         <Modal
@@ -194,7 +194,7 @@ class WebViewPage extends React.Component {
             this.webview = ref;
           }}
           style={styles.base}
-          source={{ uri: params.article.url }}
+          source={{ uri: article.url }}
           javaScriptEnabled
           domStorageEnabled
           startInLoadingState
@@ -212,6 +212,10 @@ class WebViewPage extends React.Component {
   }
 }
 
+function ifLollipop(obj1 = {}, obj2 = {}) {
+  return Platform.Version > 20 ? obj1 : obj2;
+}
+
 const styles = StyleSheet.create({
   base: {
     flex: 1
@@ -219,7 +223,29 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: '#FFF'
+    backgroundColor: '#FFF',
+    ...Platform.select({
+      ios: {
+        ...ifIphoneX(
+          {
+            paddingTop: 88,
+          },
+          {
+            paddingTop: 64,
+          }
+        ),
+      },
+      android: {
+        ...ifLollipop(
+          {
+            paddingTop: StatusBar.currentHeight + Garden.toolbarHeight,
+          },
+          {
+            paddingTop: Garden.toolbarHeight,
+          }
+        ),
+      },
+    }),
   },
   spinner: {
     flex: 1,

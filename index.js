@@ -15,7 +15,39 @@
  * limitations under the License.
  *
  */
-import { AppRegistry } from 'react-native';
-import Root from './app/root';
+import { ReactRegistry, Garden, Navigation } from 'react-native-navigation-hybrid';
 
-AppRegistry.registerComponent('reading', () => Root);
+import componentWrapper from './app/root';
+
+import About from './app/pages/About/About';
+import Category from './app/containers/CategoryContainer';
+import Feedback from './app/pages/Feedback/Feedback';
+import Web from './app/pages/ItemDetail/WebViewPage';
+import Main from './app/containers/MainContainer';
+import Splash from './app/pages/Splash';
+
+Garden.setStyle({
+  topBarStyle: 'light-content',
+  topBarColor: '#3E9CE9',
+  titleTextSize: 20,
+
+  bottomBarColor: '#FFFFFF',
+  bottomBarButtonItemActiveColor: '#3E9CE9',
+  bottomBarButtonItemInactiveColor: '#CCCCCC',
+});
+
+ReactRegistry.startRegisterComponent(componentWrapper);
+
+ReactRegistry.registerComponent('About', () => About);
+ReactRegistry.registerComponent('Category', () => Category);
+ReactRegistry.registerComponent('Feedback', () => Feedback);
+ReactRegistry.registerComponent('Web', () => Web);
+ReactRegistry.registerComponent('Main', () => Main);
+ReactRegistry.registerComponent('Splash', () => Splash);
+
+ReactRegistry.endRegisterComponent();
+
+Navigation.setRoot({
+  screen: { moduleName: 'Splash' }
+}, true);
+
